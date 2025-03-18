@@ -1,0 +1,125 @@
+# Service Discovery for Microservices
+
+## Overview
+This project implements a simple service discovery system that allows microservices to register themselves, send heartbeats, discover other services, and forward messages through a centralized service registrar.
+
+## Features
+- Microservices can **register** with the service registrar.
+- Service registrar maintains a list of available microservices.
+- Microservices send **heartbeat signals** every 2 minutes.
+- If no heartbeat is received within 5 minutes, the service is removed.
+- Services can **request a list of available services**.
+- Services can **send messages** to other services through the registrar.
+
+## Technologies Used
+- Python
+- Flask
+- Requests
+- Flask-CORS
+
+## Installation & Setup
+
+### Prerequisites
+Ensure you have the following installed:
+- Python 3.x
+- pip (Python package manager)
+- Virtual environment (recommended)
+
+### Steps to Run
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Prernagupta2226/MicroStudio.git
+   cd service-discovery
+   ```
+2. **Set up a virtual environment**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use venv\Scripts\activate
+   ```
+3. **Install dependencies**
+   ```bash
+   pip install flask flask-cors requests
+   ```
+4. **Run the service registrar**
+   ```bash
+   python service_registry.py
+   ```
+5. **Run a microservice**
+   ```bash
+   python microservices/microservice.py
+   ```
+
+## API Endpoints
+
+### **1. Register a Microservice**
+- **Endpoint:** `POST /register`
+- **Payload:**
+  ```json
+  {
+    "service_name": "microservice1",
+    "service_address": "http://localhost:5002"
+  }
+  ```
+- **Response:**
+  ```json
+  {"message": "Service microservice1 registered successfully"}
+  ```
+
+### **2. Get List of Registered Services**
+- **Endpoint:** `GET /services`
+- **Response:**
+  ```json
+  {
+    "microservice1": {"address": "http://localhost:5002", "last_heartbeat": 1700000000}
+  }
+  ```
+
+### **3. Send Heartbeat**
+- **Endpoint:** `POST /heartbeat`
+- **Payload:**
+  ```json
+  {"service_name": "microservice1"}
+  ```
+- **Response:**
+  ```json
+  {"message": "Heartbeat received"}
+  ```
+
+### **4. Forward a Message**
+- **Endpoint:** `POST /message`
+- **Payload:**
+  ```json
+  {
+    "service_name": "microservice2",
+    "message": "Hello, microservice2!"
+  }
+  ```
+- **Response:**
+  ```json
+  {"message": "Forwarding to microservice2 at http://localhost:5003: Hello, microservice2!"}
+  ```
+
+## Testing with Postman
+1. Open Postman and create a new request.
+2. Use the **API Endpoints** above to test functionality.
+3. Ensure microservices are running while testing.
+
+## GitHub Repository
+Once your repository is set up, push your code:
+```bash
+git init
+git add .
+git commit -m "Initial commit for service discovery system"
+git remote add origin <your-github-repo-url>
+git push -u origin master
+```
+
+## Future Enhancements
+- Implement load balancing.
+- Use a database instead of in-memory storage.
+- Introduce authentication and security measures.
+
+## Contributors
+- Prerna Gupta - Collaborators
+- Lokesh Kola, Shriya Reddy - Collaborators
+
