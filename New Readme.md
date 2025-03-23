@@ -4,14 +4,6 @@ This project sets up two microservices (each powered by an LLM using Ollama) tha
 
 ---
 
-## System Overview
-
-- **microservice1** and **microservice2**: Flask apps powered by Ollama's LLM (e.g., LLaMA2) that communicate back and forth.
-- **Service Registry**: Central server that handles service registration, health check heartbeats, and message forwarding.
-- **Ngrok**: Exposes local Flask servers to the internet.
-
----
-
 ## Prerequisites
 
 - Python 3.x
@@ -112,17 +104,5 @@ Invoke-RestMethod -Uri https://<registry-ngrok-url>/message `
     message = "Hello, how are you?"
     loop_count = 0
   } | ConvertTo-Json -Depth 10) `
-  -ContentType "application/json"
-```
-
-This starts a back-and-forth loop between the LLMs until `loop_count` reaches 10.
-
----
-
-## Optional Cleanup
-You can manually terminate each microservice or the registry by pressing `Ctrl+C` in the terminal.
-
----
-
-You're now running terminal-based LLM-to-LLM chat using Flask, Ngrok, and Ollama.
+  -ContentType "application/json".
 
